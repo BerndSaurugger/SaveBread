@@ -26,9 +26,9 @@ Die Genuss Bäckerei hat es sich zum Ziel gesetzt sowohl regional, als auch nach
 
 ## Requirements an das System (anhand Sophisten Regeln erstellt)
 
-- Das Savebread System muss die Anmeldedaten der SaveBread Nutzer sowie dessen Status (Administrator, Manager oder normaler Nutzer) speichern
+- Das Savebread System muss die Anmeldedaten der SaveBread Nutzer sowie dessen Rolle (Administrator, Manager oder normaler Nutzer) speichern
 - Jeder SaveBread Nutzer kann nur entweder als Administrator, Manager oder normaler Nutzer gespeichert sein
-- Der SaveBread Nutzer muss sein Passwort auf dem Anwendebildschirm der SaveBread Anwendung eingeben
+**- _Wenn der SaveBread Nutzer sein Passwort auf dem Anwendebildschirm der SaveBread Anwendung eingeben** -> _das Müssen wir anpassen mit was ist wenn falsches Passwort eingegeben etc__ @bernd.Saurugger @oliver.zeilerbauer
 - Hat ein SaveBread Nutzer kein Passwort so muss das SaveBread System dem Nutzer die Möglichkeit geben sich als Administrator, Manager oder normaler Nutzer zu registrieren
 - Die Freigabe der Registrierung muss im Falle der Registrierung eines Managers oder Andministrators von einem Administartor erfolgen
 - Die Freigabe der Registrierung eines normalen Nutzers sollte das SaveBread System atomatisch abwickeln
@@ -107,7 +107,7 @@ SaveBread trägt maßbehend an die Optimierung der Produktionsmengen von Lebensm
 
 | Risk (P:"Likelyhood", S:"Severity")  | Mitigation                                                                                                                                                                                                                                                                           | 
 |-----------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Verfügbrkeit von relevanten Daten die für die Umsetzung der Software benötigt werden (P:Low, S:High)** | Bei der Wahl der Datenquelle ist die long-term-availability ein maßgebendes Kriterium. So werden zB Wetterdaten direkt von der Zentralanstalt für Meteorologie und Geodynamik (ZAMG) bezogen. Die ZAMG ist der staatliche meteorologische und geophysikalische Dienst Österreichs. Die ZAMG wurde 1851 gegründet und ist damit der älteste staatliche Wetterdienst der Welt. |
+| **Verfügbarkeit von relevanten Daten die für die Umsetzung der Software benötigt werden (P:Low, S:High)** | Bei der Wahl der Datenquelle ist die long-term-availability ein maßgebendes Kriterium. So werden zB Wetterdaten direkt von der Zentralanstalt für Meteorologie und Geodynamik (ZAMG) bezogen. Die ZAMG ist der staatliche meteorologische und geophysikalische Dienst Österreichs. Die ZAMG wurde 1851 gegründet und ist damit der älteste staatliche Wetterdienst der Welt. |
 | **Die entwickelte Software ist nicht Nutzerfreundlich (P:Medium, S:Low)**     | Es wergen Schulungen und Trainings angeboten um potentielle Nutzer mit den Skills zur richtigen Verwendung der Software anzureichern.           |
 | **Die Genussbäckerei geht aufgrund zu hoher Wareneinsatzkösten in Konkurs bevor die rettende Software übergeben werden kann (P:Medium, S:High)**      | Die entwickelte Software kann auch für andere Betriebe adaptiert werden.  |   
 | **Die entwickelte Software wird nicht gewartet (P:High, S:High)**     | Die Software wird im Zuge der Lehrveranstaltung Softwareentwicklung 2 ausgerollt. Eine Wartung darüber hinaus ist nicht vorgesehen. Nachdem die Studenten der FH Kufstein unentgeltlich und freiwillig daran arbeiten sind sie auch nicht bereit ein Service Level Agreement (SLA) zu unterfertigen. Somit sind Leistungsumfang, Reaktionszeit und Schnelligkeit der Bearbeitung nicht garantiert.            | 
