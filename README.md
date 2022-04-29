@@ -115,6 +115,6 @@ SaveBread trägt maßbehend an die Optimierung der Produktionsmengen von Lebensm
 
 ## Reporting / Projektsitzungen
 
- - Die Umsetzung des Projekts soll agil erfolgen. Hier sollen die Ergebnisse eines Sprints in die Projektdokumentation aufgenommen werden, die zu Reportingszwecke an Lukas Huber fließen wird. Die Dokumentation erfolgt über [Issues] (https://gitlab.web.fh-kufstein.ac.at/lena.kleinschmidt/savebread/-/issues?sort=created_date&state=opened) und das [Wiki] (https://gitlab.web.fh-kufstein.ac.at/lena.kleinschmidt/savebread/-/wikis/home).
- - Sprints werden über [Issues] (https://gitlab.web.fh-kufstein.ac.at/lena.kleinschmidt/savebread/-/issues?sort=created_date&state=opened) in Gitlab organisiert und gesteuert.
+ - Die Umsetzung des Projekts soll agil erfolgen. Hier sollen die Ergebnisse eines Sprints in die Projektdokumentation aufgenommen werden, die zu Reportingszwecke an Lukas Huber fließen wird. Die Dokumentation erfolgt über [Issues](https://gitlab.web.fh-kufstein.ac.at/lena.kleinschmidt/savebread/-/issues?sort=created_date&state=opened) und das [Wiki](https://gitlab.web.fh-kufstein.ac.at/lena.kleinschmidt/savebread/-/wikis/home).
+ - Sprints werden über [Issues](https://gitlab.web.fh-kufstein.ac.at/lena.kleinschmidt/savebread/-/issues?sort=created_date&state=opened) in Gitlab organisiert und gesteuert.
  - Die agilen Projektsitzungen umfassen sowohl das Sprint-Planning zum Sprintanfang, sowie das Backlog Grooming mindestens einmal während des Sprints. Zum Sprintende erfolgen Review mit dem Stakeholder und eine Retrospektive innerhalb des Teams.
