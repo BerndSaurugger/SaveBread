@@ -1,6 +1,6 @@
 # SaveBread
 
-Projekt zur Optimierung der Backwarenproduktion der Genuss Bäckerei :)
+Projekt zur Optimierung der Backwarenproduktion der Genuss Bäckerei
 
 ## Auftraggeber
 
