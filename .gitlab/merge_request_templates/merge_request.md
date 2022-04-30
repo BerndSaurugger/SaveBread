@@ -9,7 +9,7 @@ especially important if they didn't participate in the discussion.
 -->
 
 ## Testing 
-
+_Describe the testing steps made to validate the new functionality_
 
 <!-- 
 Please include details how you tested the implemented functionality.
