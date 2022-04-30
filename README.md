@@ -11,7 +11,7 @@ Genuss-Bäckerei
 
 Team „Der harte SaveBreadkern“
 
-- Projektteam: Renato Fonseca, Lena Kleinschmidt, Stephanie Pleyer, Bernd Saurugger, Andreas Wimmer, Oiver Zeilerbauer
+- Projektteam: Renato Fonseca, Lena Kleinschmidt, Stephanie Pleyer, Bernd Saurugger, Andreas Wimmer, Oliver Zeilerbauer
 
 
 ## Ausgangssituation und Projektkontext
