@@ -26,7 +26,7 @@ Die Genuss Bäckerei hat es sich zum Ziel gesetzt sowohl regional, als auch nach
 
 ## Requirements an das System (anhand Sophisten Regeln erstellt)
 
-- Nach der optimierung der Bedarfsmenge muss die optimale Bedarfsmenge sowie die Abfallreduktion allen SaveBread Nutzern graphisch dargestellt werden
+- Nach der optimierung der Bedarfsmenge muss die optimale Bedarfsmenge sowie die Abfallreduktion graphisch dargestellt werden
 - Das SaveBread System muss die errechnete optimale Bedarfsmenge speichern
 - Die in dem Report ersparten Kosten müssen graphisch dargestellt werden
 - Die vom SaveBread generierten Reports und Graphiken sollten für mindestens 5 Jahre gespeichert werden und von den SaveBread Managern jederzeit abrufbar sein
