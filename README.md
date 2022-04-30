@@ -26,21 +26,12 @@ Die Genuss Bäckerei hat es sich zum Ziel gesetzt sowohl regional, als auch nach
 
 ## Requirements an das System (anhand Sophisten Regeln erstellt)
 
-- Das Savebread System muss die Anmeldedaten der SaveBread Nutzer sowie dessen Rolle (Administrator, Manager oder normaler Nutzer) speichern
-- Jeder SaveBread Nutzer kann nur entweder als Administrator, Manager oder normaler Nutzer gespeichert sein
-**- _Wenn der SaveBread Nutzer sein Passwort auf dem Anwendebildschirm der SaveBread Anwendung eingeben** -> _das Müssen wir anpassen mit was ist wenn falsches Passwort eingegeben etc__ @bernd.Saurugger @oliver.zeilerbauer
-- Hat ein SaveBread Nutzer kein Passwort so muss das SaveBread System dem Nutzer die Möglichkeit geben sich als Administrator, Manager oder normaler Nutzer zu registrieren
-- Die Freigabe der Registrierung muss im Falle der Registrierung eines Managers oder Andministrators von einem Administartor erfolgen
-- Die Freigabe der Registrierung eines normalen Nutzers sollte das SaveBread System atomatisch abwickeln
-- Nach der optimierung der Bedarfsmenge sollte die optimale Bedarfsmenge sowie die Abfallreduktion allen SaveBread Nutzern graphisch dargestellt werden
-- Der SaveBread Nutzer sollte in 10 Minuten mit dem SaveBread System vertraut sein
-- Das SaveBread System sollte die errechnete optimale Bedarfsmenge speichern
-- Das SaveBread System sollte jeden Speichervorgang täglich abschließen 
-- Das SaveBread System sollte am Monatsende einen Report mit den ersparten Kosten an alle SaveBread Manager per Email senden
-- Die in dem Report ersparten Kosten sollten graphisch dargestellt werden
+- Nach der optimierung der Bedarfsmenge muss die optimale Bedarfsmenge sowie die Abfallreduktion allen SaveBread Nutzern graphisch dargestellt werden
+- Das SaveBread System muss die errechnete optimale Bedarfsmenge speichern
+- Die in dem Report ersparten Kosten müssen graphisch dargestellt werden
 - Die vom SaveBread generierten Reports und Graphiken sollten für mindestens 5 Jahre gespeichert werden und von den SaveBread Managern jederzeit abrufbar sein
-- Das SaveBread System überprüft drurch Abgleich der Nutzerdaten ob der angemeldete Nutzer einen Manager ist. Wenn der angemeldete Nutzer kein Manager ist erlaubt das System die Einsicht nicht
-- Das SaveBread System sollte jedem Administrator die Möglichkeit geben alle Eingaben zu sichern und die im SaveBread gespeicherten Daten jederzeit zu überprüfen
+- Das SaveBread System sollte jedem User die Möglichkeit geben alle Eingaben zu sichern und die im SaveBread gespeicherten Daten jederzeit zu überprüfen
+- Das SaveBread System sollte am Monatsende einen Report mit den ersparten Kosten an alle SaveBread Manager per Email senden
 
 ## Veränderungen der Requirements die wahrscheinlich eitreten könnten
 
