@@ -24,7 +24,7 @@ def load_alternative_file(file_path):
     Please provide a dataset from type xlsx, xls or csv and make sure the first row name your colomns
     """
     # assert file type and load data 
-    # assert file.endswith(('.xlsx','.xls', '.csv')), "Filetype must be xlsx or csv"
+    assert file.endswith(('.xlsx','.xls', '.csv')), "Filetype must be xlsx or csv"
     if file_path.endswith('.csv'):
         df_file = read_csv(file_path)
     else:
