@@ -1,25 +1,39 @@
 from pandas import read_excel, read_csv
 import openpyxl
 import os
+import xlrd as xl
 
 
-def file_path():
+def count_input_files(directory="src/data"):
+    """
+    Name the directory where you want to read the file as input
+    """
+    list_of_files = os.listdir(directory)
+    counter = 0
+    for file in list_of_files:
+        if file.endswith(('.xlsx','.xls', '.csv')) and file != "savebread_output.xlsx":
+            counter += 1
+    return counter
+
+def get_file_path(directory="src/data"):
     """
     Automatically generates the filepath of the saved file
     """
-    list_of_data = os.listdir("src/data")
-    count_input_files = 0
+    file_amount = count_input_files(directory)
+    if file_amount == 0:
+        raise FileNotFoundError("File not correctly uploaded!")
+    if file_amount > 1: 
+        raise ValueError("You have provided {} files, but there is only one alowed".format(file_amount))
+
+    list_of_data = os.listdir(directory)
     for i in range(len(list_of_data)):
         if list_of_data[i].endswith(('.xlsx','.xls', '.csv')) and list_of_data[i] != "savebread_output.xlsx":
             file_name = list_of_data[i]
-            count_input_files += 1
-    assert count_input_files != 0, "please provide a file"
-    assert count_input_files == 1, "two many files provided"
     file_path = "src/data/" + str(file_name)
     return file_path
 
 
-def load_alternative_file(file_path):
+def load_file(file_path: str=get_file_path):
     """
     Please provide a dataset from type xlsx, xls or csv and make sure the first row name your colomns
     """
@@ -29,31 +43,15 @@ def load_alternative_file(file_path):
         df_file = read_csv(file_path)
     else:
         df_file = read_excel(file_path, sheet_name=0)
-
-
-    # assert correct reading of the dataset
-    counter = 0
-    for i in range(len(df_file.columns)):
-        if df_file.columns[i] == "Unnamed: {}".format(i):
-            counter += 1
-    assert counter != len(df_file.columns), "Fileread Error: Please check your data! Your Column names (first row in the sheet) must not be empty"
-
-    # assert all rows/cols are imported
-    if file_path.endswith(('.xlsx','.xls')):
-        assert len(df_file.columns) == openpyxl.load_workbook(file_path).get_sheet_by_name(all_worksheets[0]).max_column(), "Error while reading the columns"
-        assert len(df_file) != openpyxl.load_workbook(file_path).get_sheet_by_name(all_worksheets[0]).max_rows, "Error while reading the rows"
-
-    # assert empty dataset
-    assert len(df_file) != 0, "Error: Empty dataset inserted! Please check your data or ask the next Data Scientist"
-
-    # assert missing values
-    assert df_file.isna().any().any() == False, "The Dataset has missing values" # I am not sure if we should not go for an imputing strategy but anyway: accordingto the issue!
-
+    
     return df_file
 
-
-def load_file():
+# if df_file.columns[i] == "Unnamed: {}".format(i):
+def count_columns_in_df(data_frame=load_file):
     """
-    Loads the data by using the alternatively generated filepath
+    Name the directory where you want to read the file as input
     """
-    return load_alternative_file(file_path())
+    col_counter = 0
+    for columnname in data_frame.columns:
+        col_counter += 1
+    return col_counter
