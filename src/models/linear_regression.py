@@ -14,7 +14,7 @@ def get_X_and_y(dataframe="not defined"):
         dataframe = df()
     y = []
     for name in dataframe.columns:
-        if name == "total" or "date" or "daytime":
+        if name in ["total", "date", "daytime"]:
             continue
         else:
             y.append(dataframe[name])
@@ -25,7 +25,7 @@ def splitting_data(X= "not defined", y= "not defined"):
     """
     You may specify an alternative X and y
     """
-    if X or y == "not defined":
+    if "not defined" in [X, y]:
         X, y = get_X_and_y()
     X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=1007486, train_size=0.8)
     return X_train, X_test, y_train, y_test
@@ -35,7 +35,7 @@ def linear_regresstion_action(X_train = "not defined", X_test = "not defined", y
     You may specify X_train, X_test, y_train and y_test. 
     You must specify your input data in order to get an output!
     """
-    if X_train or X_test or y_train or y_test == "not defined":
+    if  "not defined" in [X_train, X_test, y_train, y_test]:
         X_train, X_test, y_train, y_test = splitting_data()
     assert input_data != "not defined", raise ValueError("please provide input data")
     linreg = LinearRegression()
@@ -62,7 +62,7 @@ def predict_all_features(input_data= "not defined"):
     for actual_y in y:
         X_train, X_test, y_train, y_test = splitting_data(y=actual_y)
         score, predicted_units = linear_regresstion_action()
-        scores["{}".format(actual_y.name)] = score # not sure if scores[actual_y.name] works as well or even scores[actual_y]... one need to test if input data is final
+        scores[actual_y.name] = score # not sure if scores[actual_y.name] works as well or even scores[actual_y]... one need to test if input data is final
         output_dataframe["{}".format(actual_y.name)] = predicted_units
     return scores, output_dataframe
 
