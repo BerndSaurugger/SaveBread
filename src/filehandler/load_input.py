@@ -1,7 +1,5 @@
 from pandas import read_excel, read_csv
-import openpyxl
 import os
-import xlrd as xl
 
 
 def count_input_files(directory="src/data"):
