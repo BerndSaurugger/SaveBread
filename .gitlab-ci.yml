@@ -33,6 +33,7 @@ test:
   script:
     - pip install -r tests/test_requirements.txt
     - pytest
+    - flake8 src/
 
 #run:
 #  script:
