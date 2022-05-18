@@ -1,6 +1,7 @@
 from pandas import read_excel, read_csv
 import os
 
+
 def count_input_files(directory="src/data"):
     """
     Name the directory where you want to read the file as input
