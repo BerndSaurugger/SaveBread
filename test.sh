@@ -1,4 +1,6 @@
 #!/bin/sh
 
-pytest --junitxml=report.xml
+coverage run -m pytest
+coverage report
+coverage xml
 flake8 src/
