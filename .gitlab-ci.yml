@@ -30,10 +30,8 @@ test:
   script:
     - pip3 install -r tests/test_requirements.txt
     - ./test.sh
-  artifacts:
-    when: always
-    reports:
-      junit: report.xml
+  coverage: '^TOTAL.+?(\d+\%)$'
+
 
 #run:
 #  script:
