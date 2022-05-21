@@ -2,3 +2,4 @@ xlrd
 pytest
 pandas
 openpyxl
+flake8
