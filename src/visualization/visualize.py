@@ -1,5 +1,6 @@
 # Streamlit operations
 import streamlit as st
+import models.train_model as train_model
 
 
 # Table View
