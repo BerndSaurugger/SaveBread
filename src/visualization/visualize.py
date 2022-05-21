@@ -7,7 +7,6 @@ def Table_Viewer(dataframe):
     """
     Table creates a simple table object using input data from a
     dataframe.
-    
     :param dataframe: dataframe with result predictions
     """
     if dataframe.empty:
