@@ -10,7 +10,11 @@ Welcome to savebread's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   getting-started
+   modules
 
+.. automodule:: modules
+   :members:
 
 Indices and tables
 ==================
