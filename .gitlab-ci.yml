@@ -30,6 +30,7 @@ before_script:
   - source venv/bin/activate
 
 test:
+  stage: test
   script:
     - pip3 install -r tests/test_requirements.txt
     - ./test.sh
@@ -52,13 +53,14 @@ test:
 #      - dist/*.whl
 
 pages:
- script:
-   - pip install sphinx sphinx-rtd-theme
-   - cd docs
-   - make html
-   - mv _build/html/ ../public/
- artifacts:
-   paths:
-     - public
- rules:
-   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  stage: deploy
+  script:
+    - pip install sphinx sphinx-rtd-theme
+    - cd docs
+    - make html
+    - mv _build/html/ ../public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
