@@ -1,4 +1,4 @@
-import xlrd as xl
+# import xlrd as xl
 from src.filehandler import load_input
 import pytest
 
@@ -62,16 +62,19 @@ def test_no_missing_values():
     assert not data_frame.isna().any().any()
 
 
-def test_all_columns_correctly_read():
-    data_frame = load_input.load_file("tests/test_data/folder_with_files/feature_list_all_correct.xlsx")
-    wb = xl.open_workbook("tests/test_data/folder_with_files/feature_list_all_correct.xlsx").sheet_by_index(0)
-    wb.cell_value(0, 0)
-    assert len(data_frame.columns) == wb.ncols  # "Error while reading the columns"
+# XLRD has removed support to read xlsx files, that's why I removed those tests. 
+# They just test two implementations of the same functionality from different libraries
+
+# def test_all_columns_correctly_read():
+#     data_frame = load_input.load_file("tests/test_data/folder_with_files/feature_list_all_correct.xlsx")
+#     wb = xl.open_workbook("tests/test_data/folder_with_files/feature_list_all_correct.xlsx").sheet_by_index(0)
+#     wb.cell_value(0, 0)
+#     assert len(data_frame.columns) == wb.ncols  # "Error while reading the columns"
 
 
-def test_all_rows_correctly_read():
-    data_frame = load_input.load_file("tests/test_data/folder_with_files/feature_list_all_correct.xlsx")
-    wb = xl.open_workbook("tests/test_data/folder_with_files/feature_list_all_correct.xlsx").sheet_by_index(0)
-    wb.cell_value(0, 0)
-    assert len(data_frame) == wb.nrows-1  # "Error while reading the rows" #care: pd.DataFrame uses 1 Row as Featurename
+# def test_all_rows_correctly_read():
+#     data_frame = load_input.load_file("tests/test_data/folder_with_files/feature_list_all_correct.xlsx")
+#     wb = xl.open_workbook("tests/test_data/folder_with_files/feature_list_all_correct.xlsx").sheet_by_index(0)
+#     wb.cell_value(0, 0)
+#     assert len(data_frame) == wb.nrows-1  # "Error while reading the rows" #care: pd.DataFrame uses 1 Row as Featurename
 
