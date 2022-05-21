@@ -33,6 +33,10 @@ test:
   script:
     - pip install -r tests/test_requirements.txt
     - ./test.sh
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
 
 #run:
 #  script:
