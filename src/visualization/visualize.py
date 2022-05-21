@@ -3,7 +3,7 @@ import streamlit as st
 
 
 # Table View
-def Table_Viewer(dataframe):
+def table_viewer(dataframe):
     """
     Table creates a simple table object using input data from a
     dataframe.
