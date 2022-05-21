@@ -32,14 +32,14 @@ def get_file_path(directory="src/data"):
     return file_path
 
 
-def load_file(file_path: str = get_file_path):
+def load_file(file_path: str = get_file_path, seperator=","):
     """
     Please provide a dataset from type xlsx, xls or csv and make sure the first row name your colomns
     """
     # assert file type and load data
     assert file_path.endswith(('.xlsx', '.xls', '.csv')), "Filetype must be xlsx or csv"
     if file_path.endswith('.csv'):
-        df_file = read_csv(file_path)
+        df_file = read_csv(file_path, sep=seperator)
     else:
         df_file = read_excel(file_path, sheet_name=0)
 
