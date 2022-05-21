@@ -1,4 +1,3 @@
-xlrd
 pytest
 pandas
 openpyxl
