@@ -1,4 +1,4 @@
 #!/bin/sh
 
-pytest
+pytest --junitxml=report.xml
 flake8 src/
