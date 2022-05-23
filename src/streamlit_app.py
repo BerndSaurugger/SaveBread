@@ -1,6 +1,5 @@
 # Start with
 # streamlit run ./src/streamlit_app.py
-
 import streamlit as st
 import models.train_model as train_model
 import numpy as np
@@ -46,6 +45,3 @@ with col2:
     st.dataframe(dummy_data)
     st.text('Data Frame 4')
     st.dataframe(dummy_data)
-
-
-
