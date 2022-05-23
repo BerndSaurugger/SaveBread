@@ -14,8 +14,8 @@ def get_data_with_predictions_from_dummy_data(path='./src/data/bakery_sales_data
 
 
 def get_data_with_predictions(x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
-    clf = get_linear_regression_model(x, y)
-    df_y = pd.DataFrame(clf.predict(x), columns=y.columns)
+    clf = get_linear_regression_model(x.drop(['date'], axis=1), y)
+    df_y = pd.DataFrame(clf.predict(x.drop(['date'], axis=1)), columns=y.columns)
     return pd.concat([x, df_y], axis=1)
 
 
@@ -44,7 +44,7 @@ def __get_dummy_data(path='./src/data/bakery_sales_dataset_preprocessed.csv'):
     x_columns = ['date', 'daytime', 'weekday', 'holiday', 'h_type', 'weather', 'temp']
     # Drop date because we only have 1 year of data.
     # Month is not considered as a feature because of this also.
-    x = df[x_columns].drop(['date'], axis=1)
+    x = df[x_columns]
     y = df.drop(x_columns, axis=1)
     return x, y
 
