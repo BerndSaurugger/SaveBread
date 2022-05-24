@@ -20,7 +20,7 @@ def get_data_with_predictions_from_dummy_data(path='./src/data/bakery_sales_data
 
 
 def get_data_with_predictions(x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
-    log.debug(f"Load data for predictions from dataframe")
+    log.debug("Load data for predictions from dataframe")
     clf = get_linear_regression_model(x.drop(['date'], axis=1), y)
     df_y = pd.DataFrame(clf.predict(x.drop(['date'], axis=1)), columns=y.columns)
     return pd.concat([x, df_y], axis=1)
@@ -55,4 +55,3 @@ def __get_dummy_data(path='./src/data/bakery_sales_dataset_preprocessed.csv'):
     x = df[x_columns]
     y = df.drop(x_columns, axis=1)
     return x, y
-
