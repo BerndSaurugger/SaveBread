@@ -3,8 +3,33 @@
 import streamlit as st
 import models.train_model as train_model
 import numpy as np
+import datetime
+import logging
+
 
 st.set_page_config(layout="wide")
+
+
+@st.cache
+def first_execution_date():
+    """ Used so that reloading the web app doesn't create a new log file every time """
+    return datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+
+
+logger = logging.getLogger()
+formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
+
+file_handler = logging.FileHandler(
+    f'src/logs/savebread-{first_execution_date()}.log'
+)
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
 
 
 def articles_per_timeframe():

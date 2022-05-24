@@ -5,22 +5,22 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
-from utils.logging import get_logger
+import logging
 import warnings
 
-log = get_logger(__name__)
+logger = logging.getLogger()
 
 
 def get_data_with_predictions_from_dummy_data(path='./src/data/bakery_sales_dataset_preprocessed.csv') -> pd.DataFrame:
     warnings.warn('This function is deprecated and will be removed in future releases. '
                   'Use get_data_with_predictions() instead', DeprecationWarning)
-    log.debug(f"Load data for prediction from file -> {path}")
+    logger.debug(f"Load data for prediction from file -> {path}")
     x, y = __get_dummy_data(path)
     return get_data_with_predictions(x, y)
 
 
 def get_data_with_predictions(x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
-    log.debug("Load data for predictions from dataframe")
+    logger.debug("Load data for predictions from dataframe")
     clf = get_linear_regression_model(x.drop(['date'], axis=1), y)
     df_y = pd.DataFrame(clf.predict(x.drop(['date'], axis=1)), columns=y.columns)
     return pd.concat([x, df_y], axis=1)
@@ -35,8 +35,8 @@ def get_linear_regression_model(x, y) -> Pipeline:
         ("clf", LinearRegression(n_jobs=-1)),
     ])
     scores = cross_val_score(clf, x, y, cv=5, scoring='neg_mean_squared_error')
-    log.info('Performance for Linear Regression Model\n'
-             f"{-scores.mean():0.2f} mean squared error with a standard deviation of {scores.std():0.2f}")
+    logger.info('Performance for Linear Regression Model -> '
+                f"{-scores.mean():0.2f} mean squared error with a standard deviation of {scores.std():0.2f}")
 
     clf.fit(x, y)
     return clf
