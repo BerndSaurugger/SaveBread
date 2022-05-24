@@ -12,7 +12,7 @@ log = get_logger(__name__)
 
 
 def get_data_with_predictions_from_dummy_data(path='./src/data/bakery_sales_dataset_preprocessed.csv') -> pd.DataFrame:
-    warnings.warn('This function is deprecated and will be removed in future releases.'
+    warnings.warn('This function is deprecated and will be removed in future releases. '
                   'Use get_data_with_predictions() instead', DeprecationWarning)
     log.debug(f"Load data for prediction from file -> {path}")
     x, y = __get_dummy_data(path)
