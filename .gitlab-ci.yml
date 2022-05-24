@@ -43,16 +43,14 @@ code_quality:
     - echo '-- Executing Flake8 --'
     - flake8 src/
 
-#run:
-#  script:
-#    - python setup.py bdist_wheel
-#    # an alternative approach is to install and run:
-#  artifacts:
-#    paths:
-#      - dist/*.whl
+build_package:
+  script:
+    - python setup.py bdist_wheel
+  artifacts:
+    paths:
+      - dist/*.whl
 
-# Deploy documentation
-pages:
+doc_pages:
   stage: deploy
   script:
     - pip install sphinx sphinx-rtd-theme
@@ -66,8 +64,7 @@ pages:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-# Deploy to Heroku
-production:
+deploy_webapp:
   stage: deploy
   script:
     - apt-get update -yq
