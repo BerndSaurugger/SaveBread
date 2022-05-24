@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.model_selection import cross_val_score
-from sklearn.metrics import mean_squared_error
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
