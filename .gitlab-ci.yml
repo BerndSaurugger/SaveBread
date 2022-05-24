@@ -43,6 +43,7 @@ code_quality:
     - echo '-- Executing Flake8 --'
     - flake8 src/
 
+
 build_package:
   stage: deploy
   script:
