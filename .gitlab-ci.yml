@@ -44,6 +44,7 @@ code_quality:
     - flake8 src/
 
 build_package:
+  stage: deploy
   script:
     - python setup.py bdist_wheel
   artifacts:
