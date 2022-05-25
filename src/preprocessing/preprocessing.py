@@ -123,7 +123,7 @@ def prep_merg_h(holidays, bakery):
 
 def preprocess_datasets(sales, weather, holidays):
     """
-    This function preprooscesses everything... have fun with it <3 
+    This function preprooscesses everything... have fun with it <3
     input = sales, weather, holidays
     """
     main_bakery = preprocess_sales(sales)
