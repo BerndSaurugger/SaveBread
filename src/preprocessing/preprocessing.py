@@ -3,12 +3,20 @@ import datetime as dt
 
 
 def time_in_secs(timestring):
+    """
+    This function returns the provided time in Seconds
+    input = timestring
+    """
     pt = dt.datetime.strptime(timestring, '%H:%M')
     total_seconds = pt.minute*60 + pt.hour*3600
     return total_seconds
 
 
-def preprocess_datasets(sales, weather, holidays):
+def preprocess_sales(sales):
+    """
+    This function preprocesses the sales dataset, drops na, preprocess daytime and weekday
+    input = sales dataset
+    """
     # looking at different ways to get rid of "no a number"-Values
     # dropna subset, drops every row where subset-Value is NaN
     # dropna(how='all'), drops row if all values are NaN
@@ -61,13 +69,31 @@ def preprocess_datasets(sales, weather, holidays):
 
     # drop unnecessary columns
     sales_bproducts = sales_inprogress.drop(['dayofweek', 'time', 'total'], axis=1)  # 'daytime' 'weekday'
+    main_bakery = sales_bproducts.groupby(['date', 'daytime', 'weekday']).sum().reset_index()
+    return main_bakery
+
+
+def prep_merg_w(weather, main_bakery):
+    """
+    this function preprocesses the weather dataset and merges it with the sales dataset
+    input = weather dataset, sales dataset
+    """
 
     # rename weather for case_sensitive name
     # date needs to be written exactly the same in every merging dataframe
     weather.rename(columns={'datetime': 'date'}, inplace=True)
-    holidays.rename(columns={'Date': 'date', 'type ': 'type'}, inplace=True)
-    main_bakery = sales_bproducts.groupby(['date', 'daytime', 'weekday']).sum().reset_index()
     bakery = main_bakery.merge(weather, on="date", how='left')
+    return bakery
+
+
+def prep_merg_h(holidays, bakery):
+    """
+
+    this function preprocesses the holiday dataset and merges all datasets
+    input = holiday dataset, bakery dataset
+    """
+
+    holidays.rename(columns={'Date': 'date', 'type ': 'type'}, inplace=True)
     bakery = bakery.merge(holidays, on="date", how="left")
     bakery = bakery.drop(
         ['sunrise', 'sunset', 'conditions', 'description', 'Title', 'name'],
@@ -92,5 +118,15 @@ def preprocess_datasets(sales, weather, holidays):
     # icons into cat.codes
     bakery['icon'] = bakery['icon'].astype('category').cat.codes
     bakery.rename(columns={'icon': 'weather', 'type': 'h_type'}, inplace=True)
+    return bakery
 
+
+def preprocess_datasets(sales, weather, holidays):
+    """
+    This function preprooscesses everything... have fun with it <3
+    input = sales, weather, holidays
+    """
+    main_bakery = preprocess_sales(sales)
+    first_merge = prep_merg_w(weather, main_bakery)
+    bakery = prep_merg_h(holidays, first_merge)
     return bakery
