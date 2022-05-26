@@ -2,13 +2,11 @@
  Start with
  streamlit run ./src/streamlit_app.py
  """
-import streamlit as st
-import models.train_model as tm #train_model
 import datetime
 import logging
+import streamlit as st
+import models.train_model as tm #train_model
 
-
-st.set_page_config(layout="wide")
 
 
 def main():
@@ -27,11 +25,11 @@ def main():
     with col1:
         st.header("Aggregated Predictions")
         df_input = articles_per_timeframe(dummy_data, today,time_window)
-        st.dataframe(data= df_input,
+        st.dataframe(data=df_input,
                         width=None)      
 
         st.text('Visualization 1')
-        st.dataframe(data= df_input,
+        st.dataframe(data=df_input,
                         width=None)
 
     with col2:
@@ -59,8 +57,8 @@ def articles_per_timeframe(data, today, tw):
     df = df.transpose()
     df = df.sum(axis=1).round(decimals=0)
     df = df.reset_index(level=0)
-    df.rename( columns = {'index':'products'},inplace = True)
-    df.columns = ['products','amount']
+    df.rename(columns = {'index': 'products'}, inplace = True)
+    df.columns = ['products', 'amount']
     return df
 
 
