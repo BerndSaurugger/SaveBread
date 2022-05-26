@@ -4,6 +4,7 @@ are solely used in the UI of the savebread project.
 """
 import streamlit as st
 
+
 def table_viewer(dataframe):
     """
     Table creates a simple table object using input data from a
