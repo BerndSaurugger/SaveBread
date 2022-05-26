@@ -1,55 +1,61 @@
-# Start with
-# streamlit run ./src/streamlit_app.py
-import streamlit as st
-import models.train_model as train_model
-import numpy as np
+"""
+ Start with
+ streamlit run ./src/streamlit_app.py
+ """
 import datetime
 import logging
-
-
-st.set_page_config(layout="wide")
+import streamlit as st
+import models.train_model as tm
 
 
 def main():
-    col1, col2 = st.columns(2)
+    """
+    TODO: Docstring
+    """
     today = '2020-03-01'
-
-    dummy_data = train_model.get_data_with_predictions_from_dummy_data()
-    with col1:
-        st.text('Data Frame 1')
-        articles_per_timeframe(dummy_data, today)
-
-        st.text('Data Frame 2')
-        st.dataframe(dummy_data)
-
-    with col2:
-        st.text('Data Frame 3')
-        st.dataframe(dummy_data)
-
-        st.text('Data Frame 4')
-        st.dataframe(dummy_data)
-
-
-def articles_per_timeframe(data, today):
-    df_after_today = data[data.date > today]
-
+    dummy_data = tm.get_data_with_predictions_from_dummy_data()
     time_window = st.selectbox('Which timeframe do you want to show', (
         "Tomorrow",
         "Next Week",
         "Next 4 Weeks"
     ))
+
+    col1, col2 = st.columns([3, 5])
+    with col1:
+        st.header("Aggregated Predictions")
+        df_input = articles_per_timeframe(dummy_data, today, time_window)
+        st.dataframe(data=df_input, width=None)
+        st.text('Visualization 1')
+        st.dataframe(data=df_input, width=None)
+
+    with col2:
+        st.header("Week predictions")
+        st.dataframe(dummy_data.round())
+
+        st.text('Visualization 2')
+        st.dataframe(dummy_data)
+
+
+def articles_per_timeframe(data, today, tw):
+    """
+    TODO: Docstring
+    """
+    df_after_today = data[data.date > today]
+    time_window = tw
+
     if time_window == "Tomorrow":
         filtered_df = df_after_today[df_after_today.date == '2020-03-02']
     elif time_window == 'Next Week':
         filtered_df = df_after_today[df_after_today.date <= '2020-03-09']
     elif time_window == 'Next 4 Weeks':
         filtered_df = df_after_today[df_after_today.date < '2020-03-30']
-
-    # filtered_df = filtered_df.sum()
     df = filtered_df.drop(['date', 'daytime', 'weekday', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
-    df = df.sum().T
-    df = df.apply(np.ceil)
-    st.dataframe(df)
+    df = df.transpose()
+    df = df.sum(axis=1).round(decimals=0)
+    df = df.reset_index(level=0)
+    df.rename(columns={'index': 'products'}, inplace=True)
+    df.columns = ['products', 'amount']
+    return df
 
 
 @st.cache
@@ -59,6 +65,9 @@ def first_execution_date():
 
 
 def setup_logger():
+    """
+    TODO: Docstring
+    """
     logger = logging.getLogger()
     formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
 
