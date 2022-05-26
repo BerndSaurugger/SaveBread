@@ -5,32 +5,27 @@
 import datetime
 import logging
 import streamlit as st
-import models.train_model as tm #train_model
-
-
+import models.train_model as tm
 
 def main():
     """
     TODO: Docstring
     """
     today = '2020-03-01'
-    dummy_data = tm.get_data_with_predictions_from_dummy_data()  
+    dummy_data = tm.get_data_with_predictions_from_dummy_data()
     time_window = st.selectbox('Which timeframe do you want to show', (
         "Tomorrow",
         "Next Week",
         "Next 4 Weeks"
     ))
 
-    col1, col2 = st.columns([3,5])
+    col1, col2 = st.columns([3, 5])
     with col1:
         st.header("Aggregated Predictions")
-        df_input = articles_per_timeframe(dummy_data, today,time_window)
-        st.dataframe(data=df_input,
-                        width=None)      
-
+        df_input = articles_per_timeframe(dummy_data, today, time_window)
+        st.dataframe(data=df_input, width=None)
         st.text('Visualization 1')
-        st.dataframe(data=df_input,
-                        width=None)
+        st.dataframe(data=df_input, width=None)
 
     with col2:
         st.header("Week predictions")
@@ -53,11 +48,11 @@ def articles_per_timeframe(data, today, tw):
         filtered_df = df_after_today[df_after_today.date <= '2020-03-09']
     elif time_window == 'Next 4 Weeks':
         filtered_df = df_after_today[df_after_today.date < '2020-03-30']
-    df = filtered_df.drop(['date', 'daytime', 'weekday', 'holiday', 'h_type', 'weather', 'temp'],axis=1)
+    df = filtered_df.drop(['date', 'daytime', 'weekday', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
     df = df.transpose()
     df = df.sum(axis=1).round(decimals=0)
     df = df.reset_index(level=0)
-    df.rename(columns = {'index': 'products'}, inplace = True)
+    df.rename(columns={'index': 'products'}, inplace=True)
     df.columns = ['products', 'amount']
     return df
 

@@ -4,8 +4,6 @@ are solely used in the UI of the savebread project.
 """
 import streamlit as st
 
-
-
 def table_viewer(dataframe):
     """
     Table creates a simple table object using input data from a
@@ -21,8 +19,9 @@ def line_chart(dataframe):
     """
     TODO: Docstring
     """
+    pass
 
-def histogram(dataframe):
+def pie_chart(dataframe):
     """
     TODO: Docstring
     """
