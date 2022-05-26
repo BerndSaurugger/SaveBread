@@ -1,13 +1,9 @@
 """
  Start with
-streamlit run ./src/streamlit_app.py
+ streamlit run ./src/streamlit_app.py
  """
-from unicodedata import decimal
-from matplotlib.pyplot import axis
 import streamlit as st
-import pandas as pd
 import models.train_model as tm #train_model
-import numpy as np
 import datetime
 import logging
 
@@ -16,35 +12,30 @@ st.set_page_config(layout="wide")
 
 
 def main():
+    """
+    TODO: Docstring
+    """
     today = '2020-03-01'
-    dummy_data = tm.get_data_with_predictions_from_dummy_data()
-    
-    
+    dummy_data = tm.get_data_with_predictions_from_dummy_data()  
     time_window = st.selectbox('Which timeframe do you want to show', (
         "Tomorrow",
         "Next Week",
         "Next 4 Weeks"
     ))
-    
+
     col1, col2 = st.columns([3,5])
-    
     with col1:
         st.header("Aggregated Predictions")
-        #st.text('')
         df_input = articles_per_timeframe(dummy_data, today,time_window)
         st.dataframe(data= df_input,
-                        width=None)
-        
+                        width=None)      
 
         st.text('Visualization 1')
-        #df = articles_per_timeframe(dummy_data, today)
-        #st.bar_chart(df)
         st.dataframe(data= df_input,
                         width=None)
 
     with col2:
         st.header("Week predictions")
-        #st.text('Data Frame 3')
         st.dataframe(dummy_data.round())
 
         st.text('Visualization 2')
@@ -80,6 +71,9 @@ def first_execution_date():
 
 
 def setup_logger():
+    """
+    TODO: Docstring
+    """
     logger = logging.getLogger()
     formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
 
