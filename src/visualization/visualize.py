@@ -15,14 +15,14 @@ def table_viewer(dataframe):
     else:
         st.dataframe(data=dataframe)
 
+
 def line_chart(dataframe):
     """
     TODO: Docstring
     """
-    pass
+
 
 def pie_chart(dataframe):
     """
     TODO: Docstring
     """
-    pass

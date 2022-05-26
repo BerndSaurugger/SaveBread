@@ -7,6 +7,7 @@ import logging
 import streamlit as st
 import models.train_model as tm
 
+
 def main():
     """
     TODO: Docstring
