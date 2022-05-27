@@ -79,6 +79,7 @@ deploy_webapp:
 
 create_container:
   stage: build
+  before_script: []
   tags: 
     - gpu
   image:
