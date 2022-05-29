@@ -11,6 +11,7 @@ import models.train_model as tm
 
 st.set_page_config(layout="wide")
 
+
 def main():
     """
     TODO: Docstring
