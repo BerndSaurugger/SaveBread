@@ -6,7 +6,7 @@ import datetime
 import logging
 import streamlit as st
 import models.train_model as tm
-import visualization.visualize as vis
+# import visualization.visualize as vis
 
 
 st.set_page_config(layout="wide")
@@ -15,7 +15,6 @@ def main():
     """
     TODO: Docstring
     """
-    
     today = '2020-03-01'
     dummy_data = tm.get_data_with_predictions_from_dummy_data()
     time_window = st.selectbox('Which timeframe do you want to show', (
@@ -27,7 +26,7 @@ def main():
     col1, col2 = st.columns([3, 5])
     with col1:
         st.header("Aggregated Predictions")
-        df_input = articles_per_timeframe(dummy_data, today, time_window,True)
+        df_input = articles_per_timeframe(dummy_data, today, time_window, True)
         st.dataframe(data=df_input, width=None)
         st.text('Visualization 1')
         # df_inp_vis = articles_per_timeframe(dummy_data, today, time_window)
@@ -36,10 +35,8 @@ def main():
 
     with col2:
         st.header("Week predictions")
-        df_input = articles_per_timeframe(dummy_data, today, time_window,False)
+        df_input = articles_per_timeframe(dummy_data, today, time_window, False)
         st.dataframe(data=df_input, width=None)
-       
-
         st.text('Visualization 2')
         st.dataframe(data=df_input, width=None)
 
