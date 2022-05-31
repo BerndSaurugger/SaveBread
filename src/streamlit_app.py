@@ -43,7 +43,7 @@ def main():
             df_daytime.set_index('daytime', inplace=True)
             df_daytime = df_daytime.apply(np.floor)
             df_daytime = df_daytime.transpose().reset_index(level=0)
-            df_daytime.rename(columns={'index' : 'products', 1 : 'morning', 2 : 'afternoon'}, inplace=True)
+            df_daytime.rename(columns={'index': 'products', 1: 'morning', 2: 'afternoon'}, inplace=True)
             st.dataframe(data=df_daytime, width=None)
             st.text('Visualization 2')
         elif time_window == 'Next Week':
@@ -55,7 +55,7 @@ def main():
             df_week.rename(columns={'index': 'products'}, inplace=True)
             st.dataframe(data=df_week, width=None)
             st.text('Visualization 2')
-            # st.bar_chart(data=df_week,height=550)    
+
 
 def articles_per_timeframe(data, today, tw, agg=True):
     """
