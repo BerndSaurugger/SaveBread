@@ -42,7 +42,10 @@ def main():
             st.header("predictions for tomorrow")
             df_daytime = df_input.drop(['date', 'weekday', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
             df_daytime.set_index('daytime', inplace=True)
-            st.dataframe(data=df_daytime.transpose(), width=None)
+            df_daytime = df_daytime.apply(np.floor)
+            df_daytime = df_daytime.transpose().reset_index(level=0)
+            df_daytime.rename(columns={'index': 'products',1 : 'morning',2 : 'afternoon'}, inplace=True)
+            st.dataframe(data=df_daytime, width=None)
             st.text('Visualization 2')
            # st.bar_chart(data=df_daytime,height=550)
         elif time_window == 'Next Week':
@@ -50,8 +53,9 @@ def main():
             df_week = df_input.drop(['date', 'daytime', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
             df_week = df_week.apply(np.floor)
             df_week = df_week.groupby('weekday').sum()
-            st.dataframe(data=df_week.transpose(), width=None)
-            # st.dataframe(data=df_week.transpose().apply(np.ceil), width=None)
+            df_week = df_week.transpose().reset_index(level=0)
+            df_week.rename(columns={'index': 'products'}, inplace=True)
+            st.dataframe(data=df_week, width=None)
             st.text('Visualization 2')
             # st.bar_chart(data=df_week,height=550)
         
