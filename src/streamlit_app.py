@@ -4,7 +4,7 @@
  """
 import datetime
 import logging
-from matplotlib.pyplot import axis
+
 import streamlit as st
 import models.train_model as tm
 import numpy as np
@@ -36,7 +36,6 @@ def main():
         # st.dataframe(data=df_input, width=None)
 
     with col2:
-       #  st.header("Week predictions")
         df_input = articles_per_timeframe(dummy_data, today, time_window, False)
         if time_window == "Tomorrow":
             st.header("predictions for tomorrow")
@@ -44,10 +43,9 @@ def main():
             df_daytime.set_index('daytime', inplace=True)
             df_daytime = df_daytime.apply(np.floor)
             df_daytime = df_daytime.transpose().reset_index(level=0)
-            df_daytime.rename(columns={'index': 'products',1 : 'morning',2 : 'afternoon'}, inplace=True)
+            df_daytime.rename(columns={'index' : 'products', 1 : 'morning', 2 : 'afternoon'}, inplace=True)
             st.dataframe(data=df_daytime, width=None)
             st.text('Visualization 2')
-           # st.bar_chart(data=df_daytime,height=550)
         elif time_window == 'Next Week':
             st.header("predictions for next week")
             df_week = df_input.drop(['date', 'daytime', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
@@ -57,8 +55,7 @@ def main():
             df_week.rename(columns={'index': 'products'}, inplace=True)
             st.dataframe(data=df_week, width=None)
             st.text('Visualization 2')
-            # st.bar_chart(data=df_week,height=550)
-        
+            # st.bar_chart(data=df_week,height=550)    
 
 def articles_per_timeframe(data, today, tw, agg=True):
     """
