@@ -16,16 +16,18 @@ def table_viewer(dataframe):
     else:
         st.dataframe(data=dataframe)
 
+
 def line_chart(df_input_vis):
     """
     Table creates a simple chart displaying products & sales 
     using input data from a dataframe.
     :param dataframe: dataframe with result predictions
     """
-    if dataframe.empty:
+    if df_input_vis.empty:
         st.text("No predictions available.")
     else:
-        st.dataframe(data=df_input_vis) 
+        st.dataframe(data=df_input_vis)
+
 
 def bar_chart_day(df_daytime):
     """
@@ -33,10 +35,11 @@ def bar_chart_day(df_daytime):
     using input data from dataframe.
     :param dataframe: dataframe with result predictions
     """
-    if dataframe.empty:
+    if df_daytime.empty:
         st.text("No predictions available.")
     else:
         st.dataframe(data=df_daytime)  
+
 
 def bar_chart_week(df_week):
     """
@@ -44,8 +47,7 @@ def bar_chart_week(df_week):
     using input data from dataframe.
     :param dataframe: dataframe with result predictions
     """
-    if dataframe.empty:
+    if df_week.empty:
         st.text("No predictions available.")
     else:
-        st.dataframe(data=df_week) 
-
+        st.dataframe(data=df_week)

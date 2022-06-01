@@ -9,8 +9,8 @@ import streamlit as st
 import models.train_model as tm
 import numpy as np
 import altair as alt
-import visualization.visualize as vis
-import pandas as pd
+#import visualization.visualize as vis
+#import pandas as pd
 
 
 st.set_page_config(layout="wide")
@@ -36,9 +36,9 @@ def main():
         st.dataframe(data=df_input, width=None)
         st.text('Visualization Descending')
         df_input_vis = articles_per_timeframe(dummy_data, today, time_window)
-        bars = alt.Chart(df_input_vis).mark_bar().encode(x='amount:Q',y=alt.Y('products:O', sort='-x'))
-        text = bars.mark_text(color='white').encode(text = 'amount:Q')
-        rule = alt.Chart(df_input_vis).mark_rule(color = 'red').encode(x='mean(amount):Q')
+        bars = alt.Chart(df_input_vis).mark_bar().encode(x='amount:Q', y=alt.Y('products:O', sort='-x'))
+        text = bars.mark_text(color='white').encode(text= 'amount:Q')
+        rule = alt.Chart(df_input_vis).mark_rule(color= 'red').encode(x='mean(amount):Q')
         st.altair_chart(bars+text+rule, use_container_width=True)
 
     with col2:
@@ -52,15 +52,12 @@ def main():
             df_daytime.rename(columns={'index': 'products', 1: 'morning', 2: 'afternoon'}, inplace=True)
             df_daytime['sum'] = df_daytime['morning'] + df_daytime['afternoon']
             st.dataframe(data=df_daytime, width=None)
-            # Add Chart for aggregated view 
             st.text('Visualization Tomorrow')
             bars = alt.Chart(df_daytime).transform_fold(
                 ['morning', 'afternoon'],
                 as_=['daytime', 'sum_of_sales']).mark_bar().encode(
-                    x=alt.X('sum_of_sales:Q',
-                        stack = 'zero',
-                        scale= alt.Scale(domain=(0, 15), clamp= True)),
-                    y=alt.Y('products:O', sort = '-x'),
+                    x=alt.X('sum_of_sales:Q', stack= 'zero', scale= alt.Scale(domain=(0, 15), clamp= True)),
+                    y=alt.Y('products:O', sort= '-x'),
                     color='daytime:N').interactive()
             st.altair_chart(bars, use_container_width=True)
 
@@ -71,28 +68,23 @@ def main():
             df_week = df_week.groupby('weekday').sum()
             df_week = df_week.transpose().reset_index(level=0)
             df_week.rename(columns={'index': 'products',
-            0.0: 'Monday', 
+            0.0: 'Monday',
             1.0: 'Tuesday',
-            2.0: 'Wednesday', 
-            3.0: 'Thursday', 
-            4.0: 'Friday', 
-            5.0: 'Saturday', 
+            2.0: 'Wednesday',
+            3.0: 'Thursday',
+            4.0: 'Friday',
+            5.0: 'Saturday',
             6.0: 'Sunday'}, inplace=True)
             df_week['sum']= df_week.iloc[:,1:].sum(axis=1)
-            st.dataframe(data=df_week, width=None)
-            # Add Chart for aggregated view 
+            st.dataframe(data= df_week, width= None)
             st.text('Visualization next week')
-            weekday_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-            bars = alt.Chart(df_week).transform_fold([
-                'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-              as_=['weekday', 'sum_of_sales']).mark_bar().encode(
-                  x=alt.X('sum_of_sales:Q',
-                  stack = 'zero',
-                  sort= weekday_order,
-                  scale= alt.Scale(domain=(0, 100), clamp= True)),
-                  y=alt.Y('products:O', sort= '-x'),
+            weekday_order= ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+            bars= alt.Chart(df_week).transform_fold(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+              as_= ['weekday', 'sum_of_sales']).mark_bar().encode(
+                  x= alt.X('sum_of_sales:Q', stack= 'zero', sort= weekday_order, scale= alt.Scale(domain= (0, 100), clamp= True)),
+                  y= alt.Y('products:O', sort= '-x'),
                   color= alt.Color('weekday:N', sort= weekday_order)).interactive()
-            st.altair_chart(bars, use_container_width=True)
+            st.altair_chart(bars, use_container_width= True)
 
 
 def articles_per_timeframe(data, today, tw, agg=True):
