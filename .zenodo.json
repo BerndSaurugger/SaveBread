@@ -1,0 +1,6 @@
+{
+    "title": "SaveBread",
+    "upload_type": "software",
+    "description": "This software predicts the sold bead of a bakery",
+    "creators": [{"name": "Bernd"}, {"name": "Oliver"}, {"name": "Matthias"}, {"name": "Lena"}, {"name": "Stephi"}, {"name": "Renato"} ]
+}
