@@ -6,11 +6,9 @@ import datetime
 import logging
 
 import streamlit as st
-import models.train_model as tm
 import numpy as np
-import altair as alt
-#import visualization.visualize as vis
-#import pandas as pd
+from models import train_model as tm
+import visualization.visualize as vis
 
 
 st.set_page_config(layout="wide")
@@ -36,55 +34,43 @@ def main():
         st.dataframe(data=df_input, width=None)
         st.text('Visualization Descending')
         df_input_vis = articles_per_timeframe(dummy_data, today, time_window)
-        bars = alt.Chart(df_input_vis).mark_bar().encode(x='amount:Q', y=alt.Y('products:O', sort='-x'))
-        text = bars.mark_text(color='white').encode(text= 'amount:Q')
-        rule = alt.Chart(df_input_vis).mark_rule(color= 'red').encode(x='mean(amount):Q')
-        st.altair_chart(bars+text+rule, use_container_width=True)
+        vis.line_chart(df_input_vis)
 
     with col2:
         df_input = articles_per_timeframe(dummy_data, today, time_window, False)
         if time_window == "Tomorrow":
             st.header("predictions for tomorrow")
-            df_daytime = df_input.drop(['date', 'weekday', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
+            df_daytime = df_input.drop(['date', 'weekday', 'holiday', 'h_type',
+                                        'weather', 'temp'], axis=1)
             df_daytime.set_index('daytime', inplace=True)
             df_daytime = df_daytime.apply(np.floor)
             df_daytime = df_daytime.transpose().reset_index(level=0)
-            df_daytime.rename(columns={'index': 'products', 1: 'morning', 2: 'afternoon'}, inplace=True)
+            df_daytime.rename(columns={'index': 'products',
+                                       1: 'morning',
+                                       2: 'afternoon'}, inplace=True)
             df_daytime['sum'] = df_daytime['morning'] + df_daytime['afternoon']
             st.dataframe(data=df_daytime, width=None)
             st.text('Visualization Tomorrow')
-            bars = alt.Chart(df_daytime).transform_fold(
-                ['morning', 'afternoon'],
-                as_=['daytime', 'sum_of_sales']).mark_bar().encode(
-                    x=alt.X('sum_of_sales:Q', stack= 'zero', scale= alt.Scale(domain=(0, 15), clamp= True)),
-                    y=alt.Y('products:O', sort= '-x'),
-                    color='daytime:N').interactive()
-            st.altair_chart(bars, use_container_width=True)
-
+            vis.bar_chart_day(df_daytime)
         elif time_window == 'Next Week':
             st.header("predictions for next week")
-            df_week = df_input.drop(['date', 'daytime', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
+            df_week = df_input.drop(['date', 'daytime', 'holiday', 'h_type',
+                                     'weather', 'temp'], axis=1)
             df_week = df_week.apply(np.floor)
             df_week = df_week.groupby('weekday').sum()
             df_week = df_week.transpose().reset_index(level=0)
             df_week.rename(columns={'index': 'products',
-            0.0: 'Monday',
-            1.0: 'Tuesday',
-            2.0: 'Wednesday',
-            3.0: 'Thursday',
-            4.0: 'Friday',
-            5.0: 'Saturday',
-            6.0: 'Sunday'}, inplace=True)
-            df_week['sum']= df_week.iloc[:,1:].sum(axis=1)
-            st.dataframe(data= df_week, width= None)
+                                    0.0: 'Monday',
+                                    1.0: 'Tuesday',
+                                    2.0: 'Wednesday',
+                                    3.0: 'Thursday',
+                                    4.0: 'Friday',
+                                    5.0: 'Saturday',
+                                    6.0: 'Sunday'}, inplace=True)
+            df_week['sum'] = df_week.iloc[:, 1:].sum(axis=1)
+            st.dataframe(data=df_week, width=None)
             st.text('Visualization next week')
-            weekday_order= ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-            bars= alt.Chart(df_week).transform_fold(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-              as_= ['weekday', 'sum_of_sales']).mark_bar().encode(
-                  x= alt.X('sum_of_sales:Q', stack= 'zero', sort= weekday_order, scale= alt.Scale(domain= (0, 100), clamp= True)),
-                  y= alt.Y('products:O', sort= '-x'),
-                  color= alt.Color('weekday:N', sort= weekday_order)).interactive()
-            st.altair_chart(bars, use_container_width= True)
+            vis.bar_chart_week(df_week)
 
 
 def articles_per_timeframe(data, today, tw, agg=True):
@@ -99,7 +85,8 @@ def articles_per_timeframe(data, today, tw, agg=True):
     elif time_window == 'Next Week':
         filtered_df = df_after_today[df_after_today.date <= '2020-03-09']
     if agg:
-        df = filtered_df.drop(['date', 'daytime', 'weekday', 'holiday', 'h_type', 'weather', 'temp'], axis=1)
+        df = filtered_df.drop(['date', 'daytime', 'weekday', 'holiday',
+                               'h_type', 'weather', 'temp'], axis=1)
         df = df.transpose()
         df = df.apply(np.floor)
         df = df.sum(axis=1)
