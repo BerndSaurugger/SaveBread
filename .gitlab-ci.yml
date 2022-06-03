@@ -46,7 +46,7 @@ code_quality:
     - gpu
   script:
     - echo '-- Executing Flake8 --'
-    - flake8 src/
+    - ../../../bin/flake8 src/
 
 
 build_package:
