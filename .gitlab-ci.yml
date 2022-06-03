@@ -46,7 +46,8 @@ code_quality:
     - gpu
   script:
     - echo '-- Executing Flake8 --'
-    - python -m flake8 src/
+    - pip install flake8
+    - flake8 src/
 
 
 build_package:
