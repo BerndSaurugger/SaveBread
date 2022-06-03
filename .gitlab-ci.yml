@@ -26,6 +26,8 @@ stages:
 
 unit_test:
   stage: test
+  tags:
+    - gpu
   script:
     - pip3 install -r tests/test_requirements.txt
     - coverage run -m pytest
@@ -40,6 +42,8 @@ unit_test:
 
 code_quality:
   stage: test
+  tags:
+    - gpu
   script:
     - echo '-- Executing Flake8 --'
     - flake8 src/
@@ -47,6 +51,8 @@ code_quality:
 
 build_package:
   stage: deploy
+  tags:
+    - gpu
   script:
     - python setup.py bdist_wheel
   artifacts:
@@ -55,6 +61,8 @@ build_package:
 
 doc_pages:
   stage: deploy
+  tags:
+    - gpu
   script:
     - pip install sphinx sphinx-rtd-theme
     - cd docs
@@ -69,6 +77,8 @@ doc_pages:
 
 deploy_webapp:
   stage: deploy
+  tags:
+    - gpu
   script:
     - apt-get update -yq
     - apt-get install -y ruby-dev
@@ -79,6 +89,8 @@ deploy_webapp:
 
 create_container:
   stage: build
+  tags:
+    - gpu
   before_script: []
   tags: 
     - gpu
@@ -94,6 +106,8 @@ create_container:
 
 send-snapshot:
   stage: deploy
+  tags:
+    - gpu
   script:
     - if [[ ! $CI_COMMIT_TAG =~ ^v?[0-9]+\.[0-9]+ ]]; then exit 0; fi
     - pip install gitlab2zenodo
