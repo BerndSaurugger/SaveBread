@@ -1,6 +1,6 @@
 # Sprint Reflexion
 
-#Sprint 1:
+# Sprint 1:
 
 ## Good
 - setup of infrastructure and project planning
@@ -11,7 +11,7 @@
 - scheduling for meetings (fixed appointments every week)
 - define architecture and design to go ahead with portfolio
 
-#Sprint 2:
+# Sprint 2:
 
 ## Good
 - scheduling of meetings and planning improved
@@ -23,7 +23,7 @@
 - keep an eye on ILV requirements
 - task distribution for portfolio
 
-#Sprint 3:
+# Sprint 3:
 
 ## Good
 - sprint organization
