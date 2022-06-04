@@ -2,7 +2,7 @@
 
 # Sprint 1:
 
-## Good
+## good
 - setup of infrastructure and project planning
 - task distribution
 - working in teams for coding. Advanced paired up with beginners
@@ -13,7 +13,7 @@
 
 # Sprint 2:
 
-## Good
+## good
 - scheduling of meetings and planning improved
 - everybody prepares a sprint presentation of his work to bring everyone up to date
 - continue in paired coding
@@ -25,7 +25,7 @@
 
 # Sprint 3:
 
-## Good
+## good
 - sprint organization
 - finishing tasks on time for next sprints
 - alignment on final result
