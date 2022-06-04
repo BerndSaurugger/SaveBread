@@ -9,7 +9,8 @@ import streamlit as st
 import numpy as np
 from models import train_model as tm
 import visualization.visualize as vis
-
+from filehandler.load_input import load_file
+from preprocessing.preprocessing import preprocess_datasets
 
 st.set_page_config(layout="wide")
 
@@ -20,8 +21,15 @@ def main():
     Shows 2 tables with products and sales per period
     Shows 2 graphs with products and sales per period
     """
+
+    sales = load_file("src/data/Bakery_Sales.csv")
+    weather = load_file("src/data/Seoul_weather.csv", seperator=";")
+    holidays = load_file("src/data/public_holidays.csv", seperator=";")
+
+    x, y = preprocess_datasets(sales, weather, holidays)
+
     today = '2020-03-01'
-    dummy_data = tm.get_data_with_predictions_from_dummy_data()
+    dummy_data = tm.get_data_with_predictions(x, y)
     time_window = st.selectbox('Which timeframe do you want to show', (
         "Tomorrow",
         "Next Week"

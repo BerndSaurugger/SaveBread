@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/moberleitner/fhrepos/savebread/mlruns/0/154063a7d4fc4c9ea79a3cbc6196eaca/artifacts
+end_time: 1653472425791
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 154063a7d4fc4c9ea79a3cbc6196eaca
+run_uuid: 154063a7d4fc4c9ea79a3cbc6196eaca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1653472423673
+status: 3
+tags: []
+user_id: moberleitner

@@ -23,13 +23,14 @@ def get_data_with_predictions(x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
     logger.debug("Load data for predictions from dataframe")
     clf = get_linear_regression_model(x.drop(['date'], axis=1), y)
     df_y = pd.DataFrame(clf.predict(x.drop(['date'], axis=1)), columns=y.columns)
+    df_y = df_y.applymap(__relu)
     return pd.concat([x, df_y], axis=1)
 
 
 def get_linear_regression_model(x, y) -> Pipeline:
     clf = Pipeline([
         ('column_transform', ColumnTransformer([
-            ('one_hot', OneHotEncoder(drop='first', handle_unknown='ignore', sparse=False), ['weekday'])
+            ('one_hot', OneHotEncoder(handle_unknown='ignore', sparse=False), ['weekday'])
         ], remainder='passthrough')),
         ("scaler", StandardScaler()),
         ("clf", LinearRegression(n_jobs=-1)),
@@ -40,6 +41,13 @@ def get_linear_regression_model(x, y) -> Pipeline:
 
     clf.fit(x, y)
     return clf
+
+
+def __relu(input):
+    if input > 0:
+        return input
+    else:
+        return 0
 
 
 # TODO move this into the preprocessing function
