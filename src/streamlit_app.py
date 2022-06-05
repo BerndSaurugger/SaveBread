@@ -22,6 +22,19 @@ def main():
     """
     today = '2020-03-01'
     dummy_data = tm.get_data_with_predictions_from_dummy_data()
+
+    # setup logo and header
+    col1, mid, col2 = st.columns([1, 1, 20])
+    with col1:
+        st.image('SAveBreadLogo.png', width=100)
+    with col2:
+        st.header('SaveBread Planning Tool')
+        st.write('The SaveBread Planning Tool shows a prediction '
+                 'of sales per product for tomorrow or next week. '
+                 'This helps the bakey manager to plan the production '
+                 'of the products according to the market demands '
+                 'and with the purpose to save bread from being wasted.')
+
     time_window = st.selectbox('Which timeframe do you want to show', (
         "Tomorrow",
         "Next Week"
@@ -29,7 +42,7 @@ def main():
 
     col1, col2 = st.columns([3, 5])
     with col1:
-        st.header("Aggregated Predictions")
+        st.header("Aggregated predictions")
         df_input = articles_per_timeframe(dummy_data, today, time_window, True)
         st.dataframe(data=df_input, width=None)
         st.text('Visualization Descending')
@@ -39,7 +52,7 @@ def main():
     with col2:
         df_input = articles_per_timeframe(dummy_data, today, time_window, False)
         if time_window == "Tomorrow":
-            st.header("predictions for tomorrow")
+            st.header("Predictions for tomorrow")
             df_daytime = df_input.drop(['date', 'weekday', 'holiday', 'h_type',
                                         'weather', 'temp'], axis=1)
             df_daytime.set_index('daytime', inplace=True)
@@ -53,7 +66,7 @@ def main():
             st.text('Visualization Tomorrow')
             vis.bar_chart_day(df_daytime)
         elif time_window == 'Next Week':
-            st.header("predictions for next week")
+            st.header("Predictions for next week")
             df_week = df_input.drop(['date', 'daytime', 'holiday', 'h_type',
                                      'weather', 'temp'], axis=1)
             df_week = df_week.apply(np.floor)
