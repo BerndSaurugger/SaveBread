@@ -66,7 +66,7 @@ class Preprocess_Sales:
 
         # add weekday column starting from 0 = Monday to 6 = Sunday
         sales['weekday'] = pd.to_datetime(sales['date']).apply(lambda x: x.weekday())
-        #sales = sales.rename(columns={'day of week': 'dayofweek'})
+        # sales = sales.rename(columns={'day of week': 'dayofweek'})
 
         # drop datetime and place, only date is important not datetime
         sales_inprogress = sales.drop(['datetime', 'place'], axis=1)
@@ -154,7 +154,6 @@ class Preprocess_Merge_Holidays:
 
     def transform(self, X, y=None):
         """
-
         this function preprocesses the holiday dataset and merges all datasets
         input = holiday dataset, bakery dataset
         """
@@ -189,8 +188,7 @@ class Preprocess_Merge_Holidays:
         bakery['icon'] = bakery['icon'].astype('category').cat.codes
         bakery.rename(columns={'icon': 'weather', 'type': 'h_type'}, inplace=True)
         bakery = bakery.drop(['weekday'], axis=1)
-        #print(bakery)
-        return bakery #, data
+        return bakery  # data
 
     def fit_transform(self, X, y=None):
         self.fit(X, y)
@@ -213,7 +211,6 @@ class export_df_to_csv:
         export_df = X
         export_df.to_csv("src/data/preprocessed_data.csv")
         return export_df
-
 
     def fit_transform(self, X, y=None):
         self.fit(X, y)
