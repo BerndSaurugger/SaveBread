@@ -63,3 +63,17 @@ def __get_dummy_data(path='./src/data/bakery_sales_dataset_preprocessed.csv'):
     x = df[x_columns]
     y = df.drop(x_columns, axis=1)
     return x, y
+
+
+def __get_real_data(path="./src/data/preprocessed_data"):
+    """
+    Get x and y from a csv source,
+    this function replaces the __get_dummy_data function
+    """
+    df = pd.read_csv(path, sep=',', index_col=0)
+    x_columns = ['date', 'daytime', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun', 'holiday', 'h_type', 'weather', 'temp']
+    # Drop date because we only have 1 year of data.
+    # Month is not considered as a feature because of this also.
+    x = df[x_columns]
+    y = df.drop(x_columns, axis=1)
+    return x, y

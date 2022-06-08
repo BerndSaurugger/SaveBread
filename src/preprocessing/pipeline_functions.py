@@ -188,7 +188,7 @@ class Preprocess_Merge_Holidays:
         # icons into cat.codes
         bakery['icon'] = bakery['icon'].astype('category').cat.codes
         bakery.rename(columns={'icon': 'weather', 'type': 'h_type'}, inplace=True)
-
+        bakery = bakery.drop(['weekday'], axis=1)
         #print(bakery)
         return bakery #, data
 
@@ -197,7 +197,7 @@ class Preprocess_Merge_Holidays:
         return self.transform(X, y)
 
 
-class Preprocess_Merge_Dataset:
+class export_df_to_csv:
 
     def __init__(self):
         pass
@@ -207,46 +207,13 @@ class Preprocess_Merge_Dataset:
 
     def transform(self, X, y=None):
         """
-        This function preprooscesses everything... have fun with it <3
+        This function preprocesses everything... have fun with it <3
         input = sales, weather, holidays
         """
-        data = X[0].copy()
-        holidays = data[2]
-        bakery = X[1]
+        export_df = X
+        export_df.to_csv("src/data/preprocessed_data.csv")
+        return export_df
 
-        main_bakery = preprocess_sales(sales)
-        first_merge = prep_merg_w(weather, main_bakery)
-        bakery = prep_merg_h(holidays, first_merge)
-        #print(bakery)
-        return bakery
-
-    def fit_transform(self, X, y=None):
-        self.fit(X, y)
-        return self.transform(X, y)
-
-
-class Model:
-
-    def __init__(self):
-        pass
-
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X, y=None):
-        """
-        This function preprooscesses everything... have fun with it <3
-        input = sales, weather, holidays
-        """
-        data = X[0].copy()
-        holidays = data[2]
-        bakery = X[1]
-
-        main_bakery = preprocess_sales(sales)
-        first_merge = prep_merg_w(weather, main_bakery)
-        bakery = prep_merg_h(holidays, first_merge)
-        print(bakery)
-        return bakery
 
     def fit_transform(self, X, y=None):
         self.fit(X, y)

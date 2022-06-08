@@ -14,7 +14,7 @@ holidays = read_csv("src/data/public_holidays.csv", sep=";")
 
 
 preprocessing_pipeline = Pipeline(steps=[("preprocess_Maindataset", Preprocess_Sales()), ("preprocess+merge_Weatherdataset", Preprocess_Merge_Weather()),
-                        ("preprocess+merge_Holidaydataset", Preprocess_Merge_Holidays())])  # ,("merge_Datasets", Preprocess_Merge_Dataset())])
+                        ("preprocess+merge_Holidaydataset", Preprocess_Merge_Holidays()), ("export dataframe to csv", export_df_to_csv())]) 
 
 
 # print(sales)
