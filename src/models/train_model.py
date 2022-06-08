@@ -23,13 +23,14 @@ def get_data_with_predictions(x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
     logger.debug("Load data for predictions from dataframe")
     clf = get_linear_regression_model(x.drop(['date'], axis=1), y)
     df_y = pd.DataFrame(clf.predict(x.drop(['date'], axis=1)), columns=y.columns)
+    df_y = df_y.applymap(__relu)
     return pd.concat([x, df_y], axis=1)
 
 
 def get_linear_regression_model(x, y) -> Pipeline:
     clf = Pipeline([
         ('column_transform', ColumnTransformer([
-            ('one_hot', OneHotEncoder(drop='first', handle_unknown='ignore', sparse=False), ['weekday'])
+            ('one_hot', OneHotEncoder(handle_unknown='ignore', sparse=False), ['weekday'])
         ], remainder='passthrough')),
         ("scaler", StandardScaler()),
         ("clf", LinearRegression(n_jobs=-1)),
@@ -42,6 +43,13 @@ def get_linear_regression_model(x, y) -> Pipeline:
     return clf
 
 
+def __relu(input):
+    if input > 0:
+        return input
+    else:
+        return 0
+
+
 # TODO move this into the preprocessing function
 def __get_dummy_data(path='./src/data/bakery_sales_dataset_preprocessed.csv'):
     """
@@ -50,6 +58,21 @@ def __get_dummy_data(path='./src/data/bakery_sales_dataset_preprocessed.csv'):
     """
     df = pd.read_csv(path, sep=',', index_col=0)
     x_columns = ['date', 'daytime', 'weekday', 'holiday', 'h_type', 'weather', 'temp']
+    # Drop date because we only have 1 year of data.
+    # Month is not considered as a feature because of this also.
+    x = df[x_columns]
+    y = df.drop(x_columns, axis=1)
+    return x, y
+
+
+def __get_real_data(path="./src/data/preprocessed_data"):
+    """
+    Get x and y from a csv source,
+    this function replaces the __get_dummy_data function
+    """
+    df = pd.read_csv(path, sep=',', index_col=0)
+    x_columns = ['date', 'daytime', 'Mon', 'Tues', 'Wed', 'Thurs',
+                 'Fri', 'Sat', 'Sun', 'holiday', 'h_type', 'weather', 'temp']
     # Drop date because we only have 1 year of data.
     # Month is not considered as a feature because of this also.
     x = df[x_columns]

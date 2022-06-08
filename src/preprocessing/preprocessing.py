@@ -129,4 +129,10 @@ def preprocess_datasets(sales, weather, holidays):
     main_bakery = preprocess_sales(sales)
     first_merge = prep_merg_w(weather, main_bakery)
     bakery = prep_merg_h(holidays, first_merge)
-    return bakery
+
+    x_columns = ['date', 'daytime', 'weekday', 'holiday', 'h_type', 'weather', 'temp']
+    # Drop date because we only have 1 year of data.
+    # Month is not considered as a feature because of this also.
+    x = bakery[x_columns]
+    y = bakery.drop(x_columns, axis=1)
+    return x, y
