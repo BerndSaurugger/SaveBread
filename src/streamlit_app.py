@@ -31,9 +31,10 @@ def main():
         st.header('SaveBread Planning Tool')
         st.write('The SaveBread Planning Tool shows a prediction '
                  'of sales per product for tomorrow or next week. '
-                 'This helps the bakey manager to plan the production '
-                 'of the products according to the market demands '
-                 'and with the purpose to save bread from being wasted.')
+                 'This helps the bakery manager to plan the production '
+                 'of the products according to the market demands. '
+                 'The target of this tool is to show the predicted sales per product'
+                 ' with the purpose to save bread from being wasted due to over-production.')
 
     time_window = st.selectbox('Which timeframe do you want to show', (
         "Tomorrow",
