@@ -187,8 +187,15 @@ class Preprocess_Merge_Holidays:
         # icons into cat.codes
         bakery['icon'] = bakery['icon'].astype('category').cat.codes
         bakery.rename(columns={'icon': 'weather', 'type': 'h_type'}, inplace=True)
-        bakery = bakery.drop(['weekday'], axis=1)
-        return bakery  # data
+        # bakery = bakery.drop(['weekday'], axis=1)
+        x_columns = ['date', 'daytime', 'weekday', 'Mon', 'Tues', 'Wed', 'Thur',
+                     'Fri', 'Sat', 'Sun', 'holiday', 'h_type', 'weather', 'temp']
+
+        # Drop date because we only have 1 year of data.
+        # Month is not considered as a feature because of this also.
+        x = bakery[x_columns]
+        y = bakery.drop(x_columns, axis=1)
+        return x, y
 
     def fit_transform(self, X, y=None):
         self.fit(X, y)
