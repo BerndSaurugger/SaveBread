@@ -7,8 +7,11 @@ import logging
 
 import streamlit as st
 import numpy as np
+
 from models import train_model as tm
 import visualization.visualize as vis
+from preprocessing.pipeline import get_preprocessing_pipeline
+from filehandler.load_input import load_file
 
 
 st.set_page_config(layout="wide")
@@ -20,8 +23,14 @@ def main():
     Shows 2 tables with products and sales per period
     Shows 2 graphs with products and sales per period
     """
+    sales = load_file("src/data/Bakery_Sales.csv")
+    weather = load_file("src/data/Seoul_weather.csv", seperator=";")
+    holidays = load_file("src/data/public_holidays.csv", seperator=";")
+
+    x, y = get_preprocessing_pipeline().transform([sales, weather, holidays])
+
     today = '2020-03-01'
-    dummy_data = tm.get_data_with_predictions_from_dummy_data()
+    real_data = tm.get_data_with_predictions(x, y)
 
     # setup logo and header
     col1, mid, col2 = st.columns([1, 1, 20])
@@ -44,18 +53,18 @@ def main():
     col1, col2 = st.columns([3, 5])
     with col1:
         st.header("Aggregated predictions")
-        df_input = articles_per_timeframe(dummy_data, today, time_window, True)
+        df_input = articles_per_timeframe(real_data, today, time_window, True)
         st.dataframe(data=df_input, width=None)
         st.text('Visualization Descending')
-        df_input_vis = articles_per_timeframe(dummy_data, today, time_window)
+        df_input_vis = articles_per_timeframe(real_data, today, time_window)
         vis.line_chart(df_input_vis)
 
     with col2:
-        df_input = articles_per_timeframe(dummy_data, today, time_window, False)
+        df_input = articles_per_timeframe(real_data, today, time_window, False)
         if time_window == "Tomorrow":
             st.header("Predictions for tomorrow")
             df_daytime = df_input.drop(['date', 'weekday', 'holiday', 'h_type',
-                                        'weather', 'temp'], axis=1)
+                                        'weather', 'temp', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'], axis=1)
             df_daytime.set_index('daytime', inplace=True)
             df_daytime = df_daytime.apply(np.floor)
             df_daytime = df_daytime.transpose().reset_index(level=0)
@@ -69,7 +78,7 @@ def main():
         elif time_window == 'Next Week':
             st.header("Predictions for next week")
             df_week = df_input.drop(['date', 'daytime', 'holiday', 'h_type',
-                                     'weather', 'temp'], axis=1)
+                                     'weather', 'temp', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'], axis=1)
             df_week = df_week.apply(np.floor)
             df_week = df_week.groupby('weekday').sum()
             df_week = df_week.transpose().reset_index(level=0)
@@ -100,7 +109,7 @@ def articles_per_timeframe(data, today, tw, agg=True):
         filtered_df = df_after_today[df_after_today.date <= '2020-03-09']
     if agg:
         df = filtered_df.drop(['date', 'daytime', 'weekday', 'holiday',
-                               'h_type', 'weather', 'temp'], axis=1)
+                               'h_type', 'weather', 'temp', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'], axis=1)
         df = df.transpose()
         df = df.apply(np.floor)
         df = df.sum(axis=1)
@@ -120,7 +129,7 @@ def first_execution_date():
 
 def setup_logger():
     """
-    TODO: Docstring
+    sets up logger
     """
     logger = logging.getLogger()
     formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
